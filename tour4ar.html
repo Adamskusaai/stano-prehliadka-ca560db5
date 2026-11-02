@@ -339,7 +339,7 @@ function arItems(){const wn=ARW.find(w=>w[1]===AR.wall)[0];const D=THREE.MathUti
   {t:'↺ 0,25°',a:()=>arNudge('dyaw',D)},{t:'↻ 0,25°',a:()=>arNudge('dyaw',-D)},{t:'⤒ výška +1 cm',a:()=>arNudge('dy',0.01)},{t:'⤓ výška −1 cm',a:()=>arNudge('dy',-0.01)}];}
 if(navigator.xr&&navigator.xr.isSessionSupported)navigator.xr.isSessionSupported('immersive-ar').then(ok=>{if(!ok&&!P.get('arbtn')&&P.get('ar')!=='1')return;arBtn=document.createElement('button');arBtn.id='arbtn';arBtn.textContent='Realita (AR)';arBtn.title='Zmiešaná realita – dom v skutočnom priestore 1:1';arBtn.onclick=arEnter;document.body.appendChild(arBtn);}).catch(()=>{});
 // ---- TV ----
-if(P.get('tv')!=='0'){const TV=(P.get('tv')||'walk_real/tv_stano.webp,walk_real/tv_stano2.webp').split(',');const L=new THREE.TextureLoader();const tvM=[];
+if(P.get('tv')!=='0'){const TV=(P.get('tv')||'walk_real/tv_stano_b1.webp,walk_real/tv_stano_b2.webp').split(',');const L=new THREE.TextureLoader();const tvM=[];
  const add=()=>{let scr=null;world.traverse(o=>{if(o.isMesh&&o.name==='tv_screen'&&o.visible!==null&&!scr)scr=o;});if(!scr)return;scr.geometry.computeBoundingBox();const b=scr.geometry.boundingBox.clone().applyMatrix4(scr.matrixWorld);
   const w=b.max.z-b.min.z,h=b.max.y-b.min.y;TV.forEach((u,i)=>{const m=new THREE.MeshBasicMaterial({transparent:i>0,opacity:i?0:1,toneMapped:false,depthWrite:i===0});const p=new THREE.Mesh(new THREE.PlaneGeometry(w-0.02,h-0.02),m);
    p.rotation.y=Math.PI/2;p.position.set(b.max.x+0.002+i*0.001,(b.min.y+b.max.y)/2,(b.min.z+b.max.z)/2);p.name='tv_slide';p.visible=false;scr.parent.attach(p);tvM.push(p);
